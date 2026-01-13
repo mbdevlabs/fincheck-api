@@ -59,7 +59,7 @@ Requires `DATABASE_URL` environment variable for PostgreSQL connection. Uses `do
 ## Issues e Tasks do Curso
 
 ### Bugs/Correções
-- [ ] Corrigir typo no enum `CHECHING` -> `CHECKING` em `prisma/schema.prisma:24`
+- [x] Corrigir typo no enum `CHECHING` -> `CHECKING` em `prisma/schema.prisma:24`
 - [ ] Corrigir teste E2E que espera `'Hello World!'` mas service retorna `'Hello World'`
 
 ### Segurança
