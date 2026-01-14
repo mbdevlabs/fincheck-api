@@ -65,7 +65,7 @@ Requires `DATABASE_URL` environment variable for PostgreSQL connection. Uses `do
 ### Bugs/Correções
 
 - [x] Corrigir typo no enum `CHECHING` -> `CHECKING` em `prisma/schema.prisma:24`
-- [ ] Corrigir teste E2E que espera `'Hello World!'` mas service retorna `'Hello World'`
+- [x] ~~Corrigir teste E2E~~ - Removido junto com app.controller/service (não mais necessário)
 
 ### Segurança
 
@@ -75,7 +75,7 @@ Requires `DATABASE_URL` environment variable for PostgreSQL connection. Uses `do
 ### Melhorias de Arquitetura
 
 - [ ] Criar `DatabaseModule` global para o `PrismaService` (evitar injeção repetida em cada módulo)
-- [ ] Adicionar tratamento de erros para email duplicado no cadastro de usuário
+- [x] Adicionar tratamento de erros para email duplicado no cadastro de usuário
 
 ### Módulos a Implementar
 
