@@ -41,7 +41,8 @@ NestJS modules follow the pattern: `module.ts`, `controller.ts`, `service.ts`, `
 
 ### Database Layer
 
-- **PrismaService** (`src/database/prisma.service.ts`): Extends PrismaClient, uses `@prisma/adapter-pg` for PostgreSQL
+- **PrismaService** (`src/shared/database/prisma.service.ts`): Extends PrismaClient, uses `@prisma/adapter-pg` for PostgreSQL
+- **DatabaseModule** (`src/shared/database/database.module.ts`): Global module that provides PrismaService and repositories
 - **Generated Client**: Prisma generates client to `src/generated/prisma/` (not `node_modules`)
 - **Schema**: `prisma/schema.prisma` - uses snake_case for table/column names via `@@map` and `@map`
 
@@ -74,7 +75,7 @@ Requires `DATABASE_URL` environment variable for PostgreSQL connection. Uses `do
 
 ### Melhorias de Arquitetura
 
-- [ ] Criar `DatabaseModule` global para o `PrismaService` (evitar injeção repetida em cada módulo)
+- [x] Criar `DatabaseModule` global para o `PrismaService` (evitar injeção repetida em cada módulo)
 - [x] Adicionar tratamento de erros para email duplicado no cadastro de usuário
 
 ### Módulos a Implementar
