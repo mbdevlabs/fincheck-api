@@ -57,37 +57,29 @@ NestJS modules follow the pattern: `module.ts`, `controller.ts`, `service.ts`, `
 
 Uses `class-validator` decorators in DTOs with global `ValidationPipe` enabled in `main.ts`.
 
-## Environment
+### Authentication
 
-Requires `DATABASE_URL` environment variable for PostgreSQL connection. Uses `dotenv/config` in entry points.
+- **JWT-based**: Uses `@nestjs/jwt` with global `AuthGuard`
+- **Endpoints**: `POST /auth/signin` (login), `POST /auth/signup` (register with auto-login)
+- **Protected routes**: All routes require valid JWT except auth endpoints
+- **User context**: `request.userId` available in protected routes
 
-## Issues e Tasks do Curso
+### Environment Validation
 
-### Bugs/Correções
+Environment variables are validated at startup using `class-validator` in `src/shared/config/env.ts`:
+- `DATABASE_URL` - PostgreSQL connection string
+- `JWT_SECRET` - Secret for JWT signing (must not be default value)
 
-- [x] Corrigir typo no enum `CHECHING` -> `CHECKING` em `prisma/schema.prisma:24`
-- [x] ~~Corrigir teste E2E~~ - Removido junto com app.controller/service (não mais necessário)
-
-### Segurança
-
-- [x] Implementar hash de senha com bcrypt no `UsersService.create()`
-- [x] Adicionar autenticação JWT
-
-### Melhorias de Arquitetura
-
-- [x] Criar `DatabaseModule` global para o `PrismaService` (evitar injeção repetida em cada módulo)
-- [x] Adicionar tratamento de erros para email duplicado no cadastro de usuário
-
-### Módulos a Implementar
-
-- [ ] `BankAccountModule` - CRUD de contas bancárias
-- [ ] `CategoryModule` - CRUD de categorias
-- [ ] `TransactionModule` - CRUD de transações
-
-### Estrutura de Dados
+### Data Model Relationships
 
 ```
 User (1) ──┬── (*) BankAccount ──── (*) Transaction
            ├── (*) Category ─────────────┘
            └── (*) Transaction
 ```
+
+## Roadmap
+
+- [ ] `BankAccountModule` - CRUD de contas bancárias
+- [ ] `CategoryModule` - CRUD de categorias
+- [ ] `TransactionModule` - CRUD de transações
