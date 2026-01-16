@@ -71,7 +71,7 @@ Requires `DATABASE_URL` environment variable for PostgreSQL connection. Uses `do
 ### Segurança
 
 - [x] Implementar hash de senha com bcrypt no `UsersService.create()`
-- [ ] Adicionar autenticação JWT
+- [x] Adicionar autenticação JWT
 
 ### Melhorias de Arquitetura
 
