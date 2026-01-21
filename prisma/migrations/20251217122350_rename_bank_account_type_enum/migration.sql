@@ -5,11 +5,11 @@
 
 */
 -- CreateEnum
-CREATE TYPE "back_account_type" AS ENUM ('CHECHING', 'INVESTMENT', 'CASH');
+CREATE TYPE "bank_account_type" AS ENUM ('CHECKING', 'INVESTMENT', 'CASH');
 
 -- AlterTable
 ALTER TABLE "bank_accounts" DROP COLUMN "type",
-ADD COLUMN     "type" "back_account_type" NOT NULL;
+ADD COLUMN     "type" "bank_account_type" NOT NULL;
 
 -- DropEnum
 DROP TYPE "BankAccountType";

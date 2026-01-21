@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "BankAccountType" AS ENUM ('CHECHING', 'INVESTMENT', 'CASH');
+CREATE TYPE "BankAccountType" AS ENUM ('CHECKING', 'INVESTMENT', 'CASH');
 
 -- CreateTable
 CREATE TABLE "users" (

@@ -25,7 +25,7 @@ enum BankAccountType {
   INVESTMENT
   CASH
 
-  @@map("back_account_type")
+  @@map("bank_account_type")
 }
 
 model BankAccount {
