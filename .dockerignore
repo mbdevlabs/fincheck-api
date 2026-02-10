@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.env*
+coverage
+test
+*.md
+.vscode
+.idea
+src/generated/prisma
