@@ -1,0 +1,8 @@
+services:
+  api:
+    image: ghcr.io/${GITHUB_REPOSITORY:-your-user/fincheck-api}:latest
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    restart: unless-stopped
