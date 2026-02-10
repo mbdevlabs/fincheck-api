@@ -73,7 +73,6 @@ describe('TransactionsService', () => {
 
       await sut.findAllByUserId('user-1', { month: 0, year: 2024 });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const call = transactionsRepo.findMany.mock.calls[0][0] as {
         where: {
           date: { gte: Date; lt: Date };
@@ -95,7 +94,6 @@ describe('TransactionsService', () => {
         type: TransactionType.INCOME,
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const call = transactionsRepo.findMany.mock.calls[0][0] as {
         where: { bankAccountId?: string; type?: string };
       };
@@ -108,7 +106,6 @@ describe('TransactionsService', () => {
 
       await sut.findAllByUserId('user-1', { month: 0, year: 2024 });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const call = transactionsRepo.findMany.mock.calls[0][0] as {
         where: { bankAccountId?: string; type?: string };
       };

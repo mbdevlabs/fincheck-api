@@ -107,7 +107,6 @@ describe('AuthService', () => {
         password: '12345678',
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const createCall = usersRepo.create.mock.calls[0][0] as {
         data: { categories: { createMany: { data: unknown[] } } };
       };
