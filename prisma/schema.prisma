@@ -39,6 +39,7 @@ model BankAccount {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("bank_accounts")
 }
 
@@ -59,6 +60,7 @@ model Category {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("categories")
 }
 
@@ -76,5 +78,8 @@ model Transaction {
   bankAccount BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
   category    Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
+  @@index([userId])
+  @@index([bankAccountId])
+  @@index([date])
   @@map("transactions")
 }
