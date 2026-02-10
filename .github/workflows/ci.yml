@@ -23,6 +23,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: npx prisma generate
+        env:
+          DATABASE_URL: postgresql://dummy:dummy@localhost:5432/dummy
       - run: pnpm lint
       - run: pnpm build
 
