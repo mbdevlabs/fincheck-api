@@ -183,6 +183,15 @@ Throws `NotFoundException` if resource doesn't belong to user.
 - [x] Global authentication guard
 - [x] Custom optional validation pipes
 - [x] CORS enabled
+- [x] Health Check endpoint (`GET /health`)
+- [x] Security middleware (helmet, compression)
+- [x] Database indexes (userId, bankAccountId, date)
+- [x] API Documentation (Swagger at `/api-docs`)
+- [x] Unit tests (41 tests, 11 suites)
+- [x] E2E tests (23 tests, 5 suites)
+- [x] Docker (multi-stage Dockerfile + docker-compose)
+- [x] CI/CD (GitHub Actions)
+- [x] AWS deploy configs (EC2 + RDS + Nginx)
 
 ### Pending Features
 
@@ -196,35 +205,12 @@ Throws `NotFoundException` if resource doesn't belong to user.
 - [ ] **Multi-currency** - Support for different currencies
 - [ ] **Budget/Goals** - Set spending limits per category
 
-### Tests Needed
-
-- [ ] **Unit Tests**
-  - [ ] AuthService (signup, signin, password hashing)
-  - [ ] BankAccountsService (CRUD, current balance calculation)
-  - [ ] TransactionsService (CRUD, filters, date range)
-  - [ ] CategoriesService
-  - [ ] Ownership validation services
-  - [ ] OptionalParseUUIDPipe
-  - [ ] OptionalParseEnumPipe
-
-- [ ] **Integration Tests (e2e)**
-  - [ ] Auth flow (signup → signin → access protected route)
-  - [ ] Bank account lifecycle (create → update → delete)
-  - [ ] Transaction lifecycle with ownership validation
-  - [ ] Unauthorized access attempts
-  - [ ] Validation error responses
-
 ### Improvements
 
-- [ ] **API Documentation** - Add Swagger/OpenAPI with `@nestjs/swagger`
 - [ ] **Error Handling** - Global exception filter for consistent error responses
 - [ ] **Logging** - Request/response logging interceptor
 - [ ] **Rate Limiting** - Add `@nestjs/throttler` to prevent abuse
 - [ ] **Soft Delete** - Add `deletedAt` field instead of hard delete
 - [ ] **Audit Trail** - Track who created/updated records and when
-- [ ] **Database Indexes** - Add indexes for frequent queries (userId, date)
 - [ ] **Input Sanitization** - Sanitize string inputs to prevent XSS
-- [ ] **Health Check** - Add `/health` endpoint for monitoring
-- [ ] **Docker** - Add Dockerfile and docker-compose for easy deployment
-- [ ] **CI/CD** - GitHub Actions for lint, test, build
 - [ ] **Caching** - Add Redis for caching frequent queries

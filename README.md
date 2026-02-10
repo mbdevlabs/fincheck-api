@@ -1,98 +1,117 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Fincheck API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST para gerenciamento de finanças pessoais. Controle contas bancárias, categorias e transações com autenticação JWT.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+- **NestJS 11** - Framework Node.js
+- **Prisma 7** - ORM com PostgreSQL
+- **JWT** - Autenticação com tokens de 7 dias
+- **PostgreSQL 16** - Banco de dados relacional
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Pré-requisitos
 
-## Project setup
+- Node.js 22+
+- pnpm 10+
+- PostgreSQL 14+
+- Docker (para testes E2E)
 
-```bash
-$ pnpm install
-```
+## Variáveis de Ambiente
 
-## Compile and run the project
+Crie um arquivo `.env` na raiz:
+
+| Variável | Descrição | Exemplo |
+|----------|-----------|---------|
+| `DATABASE_URL` | Connection string PostgreSQL | `postgresql://user:pass@localhost:5432/fincheck` |
+| `JWT_SECRET` | Secret para assinar JWTs | `my-super-secret` |
+| `PORT` | Porta do servidor (opcional) | `3000` |
+
+## Instalação
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
+pnpm prisma generate
+pnpm prisma migrate dev
+pnpm start:dev
 ```
 
-## Run tests
+## Testes
 
 ```bash
-# unit tests
-$ pnpm run test
+# Testes unitários
+pnpm test
 
-# e2e tests
-$ pnpm run test:e2e
+# Testes unitários com coverage
+pnpm test:cov
 
-# test coverage
-$ pnpm run test:cov
+# Testes E2E (requer Docker)
+pnpm test:e2e
 ```
 
-## Deployment
+## API Docs
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Com o servidor rodando, acesse a documentação Swagger:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```
+http://localhost:3000/api-docs
+```
+
+## Endpoints
+
+| Método | Path | Auth | Descrição |
+|--------|------|------|-----------|
+| POST | `/auth/signup` | - | Criar conta |
+| POST | `/auth/signin` | - | Login |
+| GET | `/users/me` | JWT | Perfil do usuário |
+| POST | `/bank-accounts` | JWT | Criar conta bancária |
+| GET | `/bank-accounts` | JWT | Listar contas (com saldo) |
+| PUT | `/bank-accounts/:id` | JWT | Atualizar conta |
+| DELETE | `/bank-accounts/:id` | JWT | Deletar conta |
+| GET | `/categories` | JWT | Listar categorias |
+| POST | `/transactions` | JWT | Criar transação |
+| GET | `/transactions` | JWT | Listar (filtros: month, year, bankAccountId, type) |
+| PUT | `/transactions/:id` | JWT | Atualizar transação |
+| DELETE | `/transactions/:id` | JWT | Deletar transação |
+| GET | `/health` | - | Health check |
+
+## Arquitetura
+
+```
+src/
+├── modules/
+│   ├── auth/          # Signup, signin, JWT guard
+│   ├── users/         # Perfil do usuário
+│   ├── bank-accounts/ # CRUD contas + cálculo de saldo
+│   ├── categories/    # Categorias (12 padrão no signup)
+│   └── transactions/  # CRUD transações + filtros
+├── shared/
+│   ├── database/      # PrismaService + Repositories
+│   ├── config/        # Validação de env vars
+│   ├── decorators/    # @IsPublic(), @ActiveUserId()
+│   └── pipes/         # OptionalParseUUIDPipe, OptionalParseEnumPipe
+└── test-utils/        # Factories e mocks para testes
+```
+
+### Data Model
+
+```
+User (1) ──┬── (*) BankAccount ──── (*) Transaction
+           ├── (*) Category ─────────────┘
+           └── (*) Transaction
+```
+
+## Docker
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# Desenvolvimento local
+docker compose up -d
+
+# Produção (usa RDS)
+docker compose -f docker-compose.prod.yml up -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Deploy
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+O deploy é feito via GitHub Actions CI/CD:
+- **CI**: Lint, build, testes unitários e E2E em cada PR
+- **CD**: Build Docker image, push para GHCR, deploy no EC2 via SSH
