@@ -129,7 +129,10 @@ Environment variables are validated at startup using `class-validator` in `src/s
 
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
+| POST | `/categories` | Required | Create new category |
 | GET | `/categories` | Required | Get all user's categories |
+| PUT | `/categories/:categoryId` | Required | Update category |
+| DELETE | `/categories/:categoryId` | Required | Delete category (204) |
 
 ### Transactions Module (`/transactions`)
 
@@ -178,7 +181,7 @@ Throws `NotFoundException` if resource doesn't belong to user.
 - [x] Authentication (signup/signin with JWT)
 - [x] Users (get profile)
 - [x] Bank Accounts (full CRUD with current balance calculation)
-- [x] Categories (read-only, auto-created on signup)
+- [x] Categories (full CRUD with ownership validation)
 - [x] Transactions (full CRUD with filters and ownership validation)
 - [x] Global authentication guard
 - [x] Custom optional validation pipes
@@ -188,14 +191,14 @@ Throws `NotFoundException` if resource doesn't belong to user.
 - [x] Database indexes (userId, bankAccountId, date)
 - [x] API Documentation (Swagger at `/api-docs`)
 - [x] Unit tests (41 tests, 11 suites)
-- [x] E2E tests (23 tests, 5 suites)
+- [x] E2E tests (28 tests, 5 suites)
 - [x] Docker (multi-stage Dockerfile + docker-compose)
-- [x] CI/CD (GitHub Actions)
+- [x] CI (GitHub Actions - lint, build, unit tests)
 - [x] AWS deploy configs (EC2 + RDS + Nginx)
 
 ### Pending Features
 
-- [ ] **Categories CRUD** - Create, update, delete categories
+- [x] **Categories CRUD** - Create, update, delete categories
 - [ ] **Pagination** - Add pagination to list endpoints (transactions, bank accounts)
 - [ ] **Sorting** - Allow sorting by date, value, name on list endpoints
 - [ ] **Dashboard Stats** - Endpoint for financial summary (total income/outcome by period)
