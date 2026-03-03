@@ -1,6 +1,12 @@
-# Fincheck API
+# Fincheck — API
 
-API REST para gerenciamento de finanças pessoais. Controle contas bancárias, categorias e transações com autenticação JWT.
+API REST para gerenciamento de financas pessoais. Controle contas bancarias, categorias e transacoes com autenticacao JWT.
+
+![NestJS](https://img.shields.io/badge/-NestJS_11-E0234E?style=flat-square&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Prisma](https://img.shields.io/badge/-Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
 ## Tech Stack
 
@@ -115,3 +121,7 @@ docker compose -f docker-compose.prod.yml up -d
 O deploy é feito via GitHub Actions CI/CD:
 - **CI**: Lint, build, testes unitários e E2E em cada PR
 - **CD**: Build Docker image, push para GHCR, deploy no EC2 via SSH
+
+## Relacionados
+
+- [Fincheck Web](https://github.com/mbdevlabs/fincheck-web) — Frontend React
